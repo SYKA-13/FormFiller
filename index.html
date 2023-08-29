@@ -1,0 +1,55 @@
+<<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Your CSS styles here */
+    </style>
+</head>
+<body>
+
+    <form id="urlForm">
+        <label for="url">Website URL:</label><br>
+        <input type="text" id="url" name="url" placeholder="Enter the website URL"><br>
+        
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" placeholder="Enter your name"><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" placeholder="Enter your email"><br>
+        
+        <!-- Add more fields as needed -->
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        document.getElementById('urlForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let url = document.getElementById('url').value;
+            let name = document.getElementById('name').value;
+            let email = document.getElementById('email').value;
+
+            // Prepare the formData object
+            let formData = {
+                name,
+                email
+                // Add more fields as needed
+            };
+
+            fetch('/api/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ url, formData })
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+
+</body>
+</html>
